@@ -105,9 +105,8 @@ Answer: 2
 
 5. **Run Tests**:
 ```bash
-# Quick test 10
-python tests/test_acc.py
-
+   # Quick test 10
+   python tests/test_acc.py
 ```
 
 ## Supported Problem Types
