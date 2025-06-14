@@ -93,16 +93,8 @@ Answer: 2
    ./train.sh
    ```
 
-4. **Run Tests**:
-   ```bash
-   # Quick test
-   python tests/test_acc.py
-   
-   # Full test
-   python tests/test_acc.py
-   ```
 
-5. **Generate Predictions**:
+4. **Generate Predictions**:
    ```bash
    # Local inference
    python local_llm_math_submit.py
@@ -110,6 +102,13 @@ Answer: 2
    # API inference
    python llm_api_in_context.py
    ```
+
+5. **Run Tests**:
+```bash
+# Quick test 10
+python tests/test_acc.py
+
+```
 
 ## Supported Problem Types
 

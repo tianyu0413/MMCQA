@@ -93,22 +93,19 @@
    ./train.sh
    ```
 
-4. **运行测试**：
-   ```bash
-   # 快速测试
-   python tests/test_acc.py
-   
-   # 完整测试
-   python tests/test_acc.py
-   ```
-
-5. **生成预测**：
+4. **生成预测**：
    ```bash
    # 本地推理
    python local_llm_math_submit.py
    
    # API推理
    python llm_api_in_context.py
+   ```
+
+5. **运行测试**：
+   ```bash
+   # 快速测试 10 题准确率
+   python tests/test_acc.py
    ```
 
 ## 支持的问题类型
