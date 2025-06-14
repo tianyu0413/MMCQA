@@ -96,10 +96,10 @@
 4. **运行测试**：
    ```bash
    # 快速测试
-   python tests/test_acc.py --test_file data/raw/test_sample.csv
+   python tests/test_acc.py
    
    # 完整测试
-   python tests/test_acc.py --test_file data/raw/test.csv
+   python tests/test_acc.py
    ```
 
 5. **生成预测**：

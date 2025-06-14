@@ -96,10 +96,10 @@ Answer: 2
 4. **Run Tests**:
    ```bash
    # Quick test
-   python tests/test_acc.py --test_file data/raw/test_sample.csv
+   python tests/test_acc.py
    
    # Full test
-   python tests/test_acc.py --test_file data/raw/test.csv
+   python tests/test_acc.py
    ```
 
 5. **Generate Predictions**:
