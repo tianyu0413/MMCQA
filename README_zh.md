@@ -1,6 +1,6 @@
 # Qwen2.5-7B-Instruct 数学问题求解模型
 
-[English](README.md) | [中文](README_zh.md)
+[English](docs/README.md) | [中文](docs/README_zh.md)
 
 本项目基于Qwen2.5-7B-Instruct模型，采用LoRA（Low-Rank Adaptation）方法进行微调，专门用于解决数学选择题的自然语言理解任务。
 
@@ -26,16 +26,32 @@
 
 ```
 .
-├── img/                    # 图片资源目录
-├── model/                  # 模型文件目录
-├── llm_api_in_context.py   # 带示例的LLM API调用实现
-├── llm_api.py             # 基础LLM API调用实现
-├── local_llm_math_submit.py # 本地模型提交实现
-├── test_acc.py            # 测试准确率计算脚本
-├── train_mc_swift.json    # Swift格式的训练数据
-├── convert_to_swift_format.py # 数据格式转换脚本
-├── test_sample.csv        # 测试样例数据（10题，用于快速验证）
-└── test.csv              # 完整测试数据集
+├── src/                    # 源代码目录
+│   ├── api/               # API相关代码
+│   │   ├── llm_api.py
+│   │   └── llm_api_in_context.py
+│   ├── models/            # 模型相关代码
+│   │   └── local_llm_math_submit.py
+│   └── utils/             # 工具函数
+│       └── convert_to_swift_format.py
+├── scripts/               # 训练和评估脚本
+│   └── train.sh
+├── tests/                 # 测试文件
+│   └── test_acc.py
+├── data/                  # 数据目录
+│   ├── raw/              # 原始数据文件
+│   │   ├── train_mc.jsonl
+│   │   ├── test.csv
+│   │   └── test_sample.csv
+│   └── processed/        # 处理后的数据文件
+│       └── train_mc_swift.json
+├── docs/                  # 文档
+│   ├── README.md
+│   └── README_zh.md
+├── config/               # 配置文件
+├── img/                  # 图片资源
+├── model/                # 模型文件
+└── requirements.txt      # Python依赖
 ```
 
 ## 核心功能
@@ -71,31 +87,31 @@
 
 2. **数据准备**：
    ```bash
-   python convert_to_swift_format.py
+   python src/utils/convert_to_swift_format.py
    ```
 
 3. **模型训练**：
    ```bash
-   swift train.py
+   ./scripts/train.sh
    ```
 
 4. **快速验证**：
    ```bash
-   python test_acc.py --test_file test_sample.csv
+   python tests/test_acc.py --test_file data/raw/test_sample.csv
    ```
 
 5. **完整测试**：
    ```bash
-   python test_acc.py --test_file test.csv
+   python tests/test_acc.py --test_file data/raw/test.csv
    ```
 
 6. **生成预测结果**：
    ```bash
    # 本地模型推理
-   python local_llm_math_submit.py
+   python src/models/local_llm_math_submit.py
    
    # API调用推理
-   python llm_api_in_context.py
+   python src/api/llm_api_in_context.py
    ```
 
 ## 模型性能

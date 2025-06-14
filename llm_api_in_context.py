@@ -2,15 +2,16 @@ import csv
 import ast
 from openai import OpenAI
 import re
+import os
 
 client = OpenAI(
-    api_key="sk-zZN8G1vgTHXTjpXKPskN9l6FgzReYqhFxCMZsLNEynx6vHV4",
-    base_url="https://api.chatanywhere.tech/v1"
+    api_key=os.getenv("OPENAI_API_KEY"),
+    base_url=os.getenv("OPENAI_API_BASE")
 )
 
 # 读取测试集
 # test_file = 'test_sample.csv'
-test_file = 'test.csv'
+test_file = 'data/raw/test.csv'
 output_file = 'my_submission.csv'
 
 results = []

@@ -1,12 +1,12 @@
 # Qwen2.5-7B-Instruct Math Problem Solving Model
 
-[English](README.md) | [中文](README_zh.md)
+[English](docs/README.md) | [中文](docs/README_zh.md)
 
-This project is based on the Qwen2.5-7B-Instruct model, utilizing LoRA (Low-Rank Adaptation) for fine-tuning, specifically designed for mathematical multiple-choice question answering tasks.
+This project implements a mathematical problem-solving model based on Qwen2.5-7B-Instruct, fine-tuned using LoRA (Low-Rank Adaptation) for multiple-choice question answering.
 
 ## Dataset
 
-This project uses the Math Multiple Choice QA (MMCQA) dataset, a natural language understanding task focused on mathematical problems. Given a question and multiple choices, the goal is to select the correct answer.
+The project uses the Math Multiple Choice QA (MMCQA) dataset, which focuses on mathematical problem-solving through natural language understanding. Each problem consists of a question and multiple answer choices.
 
 Example:
 ```
@@ -19,110 +19,121 @@ Answer: 2
 
 - Python 3.10.8
 - Swift 2.6.1
-- CUDA 11.7+ (recommended for training and inference)
-- 16GB+ RAM (recommended for model loading and inference)
+- CUDA 11.7+ (for training and inference)
+- 16GB+ RAM (for model loading and inference)
 
 ## Project Structure
 
 ```
 .
-├── img/                    # Image resources directory
-├── model/                  # Model files directory
-├── llm_api_in_context.py   # LLM API implementation with examples
-├── llm_api.py             # Basic LLM API implementation
-├── local_llm_math_submit.py # Local model submission implementation
-├── test_acc.py            # Test accuracy calculation script
-├── train_mc_swift.json    # Training data in Swift format
-├── convert_to_swift_format.py # Data format conversion script
-├── test_sample.csv        # Test sample data (10 questions for quick validation)
-└── test.csv              # Complete test dataset
+├── src/                    # Source code
+│   └── utils/             # Utility functions
+│       └── convert_to_swift_format.py
+├── scripts/               # Training and evaluation scripts
+├── tests/                 # Test files
+│   └── test_acc.py
+├── data/                  # Data files
+│   ├── raw/              # Raw data
+│   │   ├── train_mc.jsonl
+│   │   ├── test.csv
+│   │   └── test_sample.csv
+│   └── processed/        # Processed data
+│       └── train_mc_swift.json
+├── docs/                  # Documentation
+│   ├── README.md
+│   └── README_zh.md
+├── config/               # Configuration files
+├── img/                  # Image resources
+├── model/                # Model files
+├── llm_api.py           # API implementation
+├── llm_api_in_context.py # Context-aware API implementation
+├── local_llm_math_submit.py # Local model inference
+├── train.sh             # Training script
+└── requirements.txt      # Python dependencies
 ```
 
-## Core Features
+## Features
 
-### 1. Data Preprocessing
-- Data format conversion: Convert original JSONL format to Swift training JSON format
-- Data cleaning: Ensure data format consistency, remove abnormal samples
-- Example construction: Generate training data with rich examples
+1. **Data Processing**
+   - JSONL to Swift format conversion
+   - Data validation and cleaning
+   - Example generation for training
 
-### 2. Model Training
-- Based on Qwen2.5-7B-Instruct pre-trained model
-- Parameter-efficient fine-tuning using LoRA
-- Distributed training using Swift framework
-- Support for checkpoint saving and resuming training
+2. **Model Training**
+   - Qwen2.5-7B-Instruct base model
+   - LoRA fine-tuning
+   - Swift-based distributed training
+   - Checkpoint management
 
-### 3. Model Inference
-- Local model inference: Support for CPU and GPU inference
-- API inference: Support for multiple API interfaces
-- Context learning: Enhanced inference with rich examples
-- Batch processing: Efficient inference for large-scale data
+3. **Inference**
+   - Local CPU/GPU inference
+   - API-based inference
+   - Context-aware prediction
+   - Batch processing support
 
-### 4. Evaluation and Testing
-- Accuracy evaluation: Detailed evaluation metrics
-- Quick validation: Using test_sample.csv for rapid model validation
-- Complete testing: Using test.csv for full performance evaluation
+4. **Evaluation**
+   - Accuracy metrics
+   - Sample validation
+   - Full dataset testing
 
-## Quick Start
+## Getting Started
 
-1. **Environment Setup**:
+1. **Setup Environment**:
    ```bash
    pip install -r requirements.txt
    ```
 
-2. **Data Preparation**:
+2. **Prepare Data**:
    ```bash
-   python convert_to_swift_format.py
+   python src/utils/convert_to_swift_format.py
    ```
 
-3. **Model Training**:
+3. **Train Model**:
    ```bash
-   swift train.py
+   ./train.sh
    ```
 
-4. **Quick Validation**:
+4. **Run Tests**:
    ```bash
-   python test_acc.py --test_file test_sample.csv
+   # Quick test
+   python tests/test_acc.py --test_file data/raw/test_sample.csv
+   
+   # Full test
+   python tests/test_acc.py --test_file data/raw/test.csv
    ```
 
-5. **Complete Testing**:
+5. **Generate Predictions**:
    ```bash
-   python test_acc.py --test_file test.csv
-   ```
-
-6. **Generate Predictions**:
-   ```bash
-   # Local model inference
+   # Local inference
    python local_llm_math_submit.py
    
    # API inference
    python llm_api_in_context.py
    ```
 
-## Model Performance
+## Supported Problem Types
 
-The model excels in the following types of mathematical problems:
-- Basic arithmetic operations
-- Algebraic equation solving
-- Geometric problems
+- Arithmetic operations
+- Algebraic equations
+- Geometry
 - Word problems
-- Ratio and percentage calculations
-- Time, distance, and speed problems
+- Ratios and percentages
+- Time, distance, and speed
 - Probability and statistics
 
-## Best Practices
+## Configuration
 
-1. **Hardware Configuration**:
-   - Recommended to use GPU for training and inference
-   - Ensure sufficient VRAM (16GB+ recommended)
-   - Use SSD for training data storage
+1. **Environment Variables**
+   - Set `OPENAI_API_KEY` for API access
+   - Set `OPENAI_API_BASE` for custom API endpoint
 
-2. **API Usage**:
-   - Securely store API keys
-   - Implement request rate limiting and error retry
-   - Monitor API call costs
+2. **Hardware Requirements**
+   - GPU with 16GB+ VRAM recommended
+   - SSD storage for data
+   - 16GB+ system RAM
 
-3. **Model Deployment**:
-   - Use model quantization to reduce model size
-   - Implement model caching mechanism
-   - Configure appropriate batch sizes
+3. **Model Settings**
+   - Adjust batch size based on available memory
+   - Configure model quantization as needed
+   - Set appropriate cache parameters
 
