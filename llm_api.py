@@ -4,8 +4,8 @@ from openai import OpenAI
 import re
 
 client = OpenAI(
-    api_key="sk-zZN8G1vgTHXTjpXKPskN9l6FgzReYqhFxCMZsLNEynx6vHV4",
-    base_url="https://api.chatanywhere.tech/v1"
+    api_key="OPENAI_API_KEY",
+    base_url="OPENAI_API_BASE"
 )
 
 # 读取测试集
